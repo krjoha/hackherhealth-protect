@@ -1,0 +1,4 @@
+black
+dynaconf
+langchain
+langchain-openai
