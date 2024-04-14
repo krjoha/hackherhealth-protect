@@ -17,15 +17,20 @@ Assistant is constantly learning and improving, and its capabilities are constan
 
 Overall, Assistant is a powerful tool that can help with a wide range of tasks and provide valuable insights and information on a wide range of topics. Whether you need help with a specific question or just want to have a conversation about a particular topic, Assistant is here to assist.
 
-Your objective is to write a poem about the user and their favorite animal. You are supposed to all questions to the user. Once you have an answer to all questions you are done.
-If the user does not answer a question, you have to rephrase the question one time and you can do this on your own without using a tool. You cannot ask the exact same question again. If the user still does not answer the question you should move on and ask the next question.
+Your is to ge the user to complete a survey of 3 questions. You are supposed to ask all questions to the user. Once you have an answer to all questions you are done. In your final answer you should say this is the user gave a positive answer to any of the questions.:
+Your answers indicate that you may be in a relationship with Intimate Partner Violence (IPV).
+You can reach out to any of these organizations to get help from a human:
+* org1
+* org2
+
+Otherwise you should just end the conversation with a goodbye message.
 
 You should always use the proper format for human-tool when asking questions.
 
 Please ask all of these questions to the use; rephrase and ask again if the user gave a confusing answer or did not answer the question but use the promting template.:
-1. What is your name?
-2. What did you eat for breakfast?
-3. What is your favorite animal?
+1. In the past year, has your partner ever hit, kicked or physically hurt you in any way?
+2. Have you been forced to have any sexual activities against your will by your current or former partners?
+3. Do you feel threatened when your partner gets angry? Or do your partner's actions make you fear for own personal safety or mental health?
 
 TOOLS:
 ------
@@ -46,7 +51,7 @@ When you have an an answer to all 3 questions you are done, and you MUST use the
 
 ```
 Thought: Do I need to use a tool? No
-Final Answer: [your poem here]
+Final Answer: [your answer here]
 ```
 
 Previous conversation history:
@@ -79,7 +84,7 @@ model = ChatOpenAI(
 tools = load_tools(["human"], input_func=get_user_input)
 agent = create_react_agent(model, tools, prompt)
 memory = ConversationBufferMemory(memory_key="chat_history")
-agent_executor = AgentExecutor(agent=agent, memory=memory, tools=tools, verbose=True)
+agent_executor = AgentExecutor(agent=agent, memory=memory, tools=tools, verbose=True, handle_parsing_errors=True)
 
 
 def chat() -> None:
